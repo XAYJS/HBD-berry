@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from 'react-router-dom'
+import {  Route, Routes } from 'react-router-dom'
 import { Home } from './page/home.tsx'
 import { Second} from './page/Second.tsx'
 import { Third } from './page/Third.tsx'

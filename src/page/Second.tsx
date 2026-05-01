@@ -1,23 +1,26 @@
-import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, type Variants } from "framer-motion";
 import { Third } from "./Third";
 
 export const Second = () => {
   const [showNextPage, setShowNextPage] = useState(false);
   const playerRef = useRef<HTMLIFrameElement>(null);
 
-  // ⏱️ เค้กเด้งขึ้นทีละชั้น (0.2s stagger)
-  const cakeVariants = {
+  const cakeVariants: Variants = {
     animate: { transition: { staggerChildren: 0.2 } },
   };
 
-  const layerVariants = {
+  const layerVariants: Variants = {
     initial: { y: 40, opacity: 0, scale: 0.8 },
     animate: { 
       y: 0, 
       opacity: 1, 
       scale: 1,
-      transition: { type: "spring", stiffness: 120, damping: 10 } 
+      transition: { 
+        type: "spring", 
+        stiffness: 120, 
+        damping: 10 
+      } 
     },
   };
 
@@ -26,12 +29,12 @@ export const Second = () => {
   if (showNextPage) return <Third />;
 
   return (
-    <div className="w-full min-h-dvh bg-gradient-to-br from-[#0f766e] via-[#0ea5e9] to-[#10b981] overflow-hidden relative flex flex-col justify-center items-center font-sans">
+    <div className="w-full min-h-dvh bg-linear-to-br from-[#0f766e] via-[#0ea5e9] to-[#10b981] overflow-hidden relative flex flex-col justify-center items-center font-sans">
       
-      {/* 🎵 Hidden Music Player (Taylor Swift - The 1) */}
       <div className="hidden">
         <iframe
           ref={playerRef}
+          title="Birthday Music"
           width="0"
           height="0"
           src="https://www.youtube.com/embed/90w2RegGf9w?autoplay=1&enablejsapi=1"
@@ -39,7 +42,6 @@ export const Second = () => {
         ></iframe>
       </div>
 
-      {/* 🎊 Foil Rain (ฝนฟอยล์วิบวับ) */}
       <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
         {[...Array(35)].map((_, i) => (
           <motion.div
@@ -72,47 +74,41 @@ export const Second = () => {
 
       <div className="w-full max-w-sm px-6 flex flex-col items-center z-20">
         
-        {/* 🎂 3D Realistic Cake */}
         <motion.div
           variants={cakeVariants}
           initial="initial"
           animate="animate"
-          className="relative w-[280px] h-[250px] mb-8 flex flex-col items-center"
+          className="relative w-70 h-62.5 mb-8 flex flex-col items-center"
         >
-          <motion.div variants={layerVariants} className="absolute bottom-[0px] w-[240px] h-[40px] bg-white/10 rounded-[50%] border-b border-white/20 shadow-2xl backdrop-blur-sm z-0" />
+          <motion.div variants={layerVariants} className="absolute bottom-0 w-60 h-10 bg-white/10 rounded-[50%] border-b border-white/20 shadow-2xl backdrop-blur-sm z-0" />
 
-          {/* Base Layer */}
           <motion.div 
             variants={layerVariants} 
-            className="absolute bottom-[15px] w-[200px] h-[60px] bg-[#f0fdfa] rounded-[50%] shadow-[0_25px_0_#99f6e4,0_35px_15px_rgba(0,0,0,0.15)] z-10 flex justify-center pt-8"
+            className="absolute bottom-3.75 w-50 h-15 bg-[#f0fdfa] rounded-[50%] shadow-[0_25px_0_#99f6e4,0_35px_15px_rgba(0,0,0,0.15)] z-10 flex justify-center pt-8"
           >
             <span className="text-teal-500/40 text-[10px] font-black tracking-widest uppercase">HBD MY LOVE</span>
           </motion.div>
 
-          {/* Middle Layer */}
           <motion.div 
             variants={layerVariants} 
-            className="absolute bottom-[60px] w-[150px] h-[50px] bg-white rounded-[50%] shadow-[0_20px_0_#ccfbf1] z-20"
+            className="absolute bottom-15 w-37.5 h-12.5 bg-white rounded-[50%] shadow-[0_20px_0_#ccfbf1] z-20"
           />
 
-          {/* Top Layer */}
           <motion.div 
             variants={layerVariants} 
-            className="absolute bottom-[95px] w-[100px] h-[40px] bg-[#e6fffa] rounded-[50%] shadow-[0_15px_0_#5eead4] z-30"
+            className="absolute bottom-23.75 w-25 h-10 bg-[#e6fffa] rounded-[50%] shadow-[0_15px_0_#5eead4] z-30"
           />
 
-          {/* Candle */}
-          <motion.div variants={layerVariants} className="absolute bottom-[135px] z-40 flex flex-col items-center">
+          <motion.div variants={layerVariants} className="absolute bottom-33.75 z-40 flex flex-col items-center">
             <motion.div
               animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }}
               transition={{ repeat: Infinity, duration: 0.6 }}
-              className="w-3 h-5 bg-gradient-to-t from-orange-400 to-yellow-200 rounded-full shadow-[0_0_15px_#fbbf24] mb-1"
+              className="w-3 h-5 bg-linear-to-t from-orange-400 to-yellow-200 rounded-full shadow-[0_0_15px_#fbbf24] mb-1"
             />
             <div className="w-2 h-10 bg-[repeating-linear-gradient(45deg,#fecdd3,#fecdd3_4px,#fff_4px,#fff_8px)] rounded-sm" />
           </motion.div>
         </motion.div>
 
-        {/* 💌 Romantic Message Area */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
